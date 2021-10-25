@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Avatar, Menu, MenuItem, ListItemIcon, Divider, Button } from '@mui/material'
 import Logout from '@mui/icons-material/Logout'
 import { useAuth } from '../../providers/auth'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export default function UserMenu () {
   const { logout } = useAuth()
@@ -33,6 +34,7 @@ export default function UserMenu () {
           fontSize: 15,
           fontWeight: 600
         }}
+        endIcon={<KeyboardArrowDownIcon />}
       >
         User Name
       </Button>

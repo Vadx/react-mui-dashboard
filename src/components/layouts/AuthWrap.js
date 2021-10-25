@@ -2,7 +2,7 @@ import React from 'react'
 import { Paper, Container, Typography, AppBar, Stack } from '@mui/material'
 import Logo from './Logo'
 import { useAuth } from '../../providers/auth'
-import AuthMenu from '../menus/AuthMenu'
+import AuthMenu from '../menu/AuthMenu'
 
 export default function AuthWrap ({ children, title }) {
   const { isAuthenticated } = useAuth()

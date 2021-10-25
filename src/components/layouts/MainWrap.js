@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Box, AppBar, Stack, Toolbar, IconButton } from '@mui/material'
 import { useAuth } from '../../providers/auth'
-import MainMenu from '../menus/MainMenu'
-import UserMenu from '../menus/UserMenu'
+import MainMenu from '../menu/MainMenu'
+import UserMenu from '../menu/UserMenu'
+import AuthMenu from '../menu/AuthMenu'
 import Logo from './Logo'
 import MenuIcon from '@mui/icons-material/Menu'
 
@@ -46,6 +47,9 @@ export default function MainWrap ({ children, title }) {
           </Box>
           {isAuthenticated && (
             <UserMenu />
+          )}
+          {!isAuthenticated && (
+            <AuthMenu />
           )}
         </Stack>
 

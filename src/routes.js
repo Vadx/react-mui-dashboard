@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
+import { useAuth } from './providers/auth'
 
 import Home from './pages/Home'
 
@@ -24,19 +25,23 @@ export const routes = [
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    isAuthorisation: true
   },
   {
     path: '/signup',
-    component: SignUp
+    component: SignUp,
+    isAuthorisation: true
   },
   {
     path: '/forgot-password',
-    component: ForgotPassword
+    component: ForgotPassword,
+    isAuthorisation: true
   },
   {
     path: '/reset-password',
-    component: ResetPassword
+    component: ResetPassword,
+    isAuthorisation: true
   },
   {
     path: '/dashboard',
@@ -57,12 +62,25 @@ export const routes = [
 ]
 
 export function RouteWithSubRoutes (route) {
+  const { isAuthenticated } = useAuth()
   return (
     <Route
       path={route.path}
-      render={props => (
-        <route.component {...props} routes={route.routes} />
-      )}
+      render={props => {
+        if (!isAuthenticated && !!route.isAuthorisation) {
+          return <route.component {...props} />
+        }
+
+        if (!isAuthenticated && !route.isAuthorisation) {
+          return <Redirect to='/login' />
+        }
+
+        if (isAuthenticated && !route.isAuthorisation) {
+          return <route.component {...props} />
+        } else {
+          return <Redirect to='/dashboard' />
+        }
+      }}
     />
   )
 }
